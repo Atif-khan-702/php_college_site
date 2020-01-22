@@ -9,6 +9,10 @@ window.onload=function(){
   });
   document.getElementById('email').onchange=myFunction1;
   document.getElementById("subscribe").onclick=subscribe_message;
+  document.getElementById("email").onchange=ValidateEmail;
+  document.getElementById("adhar").onchange=adhar_valid;
+  document.getElementById("mobile").onchange=mobile_valid;
+  document.getElementById('dob').onchange=age_validator;
   
 }
 arr=['fname','lname','fatherName','motherName','email','mobile','adhar','gender','dob','country','state','city'];
@@ -20,10 +24,36 @@ arr=['fname','lname','fatherName','motherName','email','mobile','adhar','gender'
 });
 var flag=false;
 
+/* function for age validation, age should be in between 14-40 */
+function age_validator(){
+  var dateString = document.getElementById("dob").value;
+  if(dateString !=""){
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    var da = today.getDate() - birthDate.getDate();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    if(m<0){
+      m +=12;
+    }
+    if(da<0){
+      da +=30;
+    }
+    if (age >= 16 && age <= 40) {
+      document.getElementById("dob_error1").style.visibility="hidden";
+    }else {
+      document.getElementById('dob').style.border = "solid 1px red";
+      document.getElementById("dob_error1").style.visibility="visible";
+    }
+  }
+}
+
 function remove_error(){
   if(document.getElementById("email_subscribe").value.trim()!=""){
-    document.getElementById("subscribe_incorrect").style.visibility="hidden";
-    document.getElementById("subscribe_correct").style.visibility="hidden";
+    document.querySelectorAll("#subscribe_incorrect , #subscribe_correct").style.visibility="hidden";
   }
 }
 
@@ -46,27 +76,30 @@ function ValidateEmail()
 {
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if(document.getElementById('email').value.match(mailformat)){
-    return true;
+  }else{
+    document.getElementById('email').style.border = "solid 1px red";
+    document.getElementById("email_error").style.visibility="visible";
   }
-  return false;
 }
 
 /* mobile number validation code. It must contain only digit and should length of 10 */
 function mobile_valid(){
   var phoneno = /^\d{10}$/;
   if(document.getElementById('mobile').value.match(phoneno)){
-      return true;
+  }else{
+    document.getElementById('mobile').style.border = "solid 1px red";
+    document.getElementById("mobile_error").style.visibility="visible";
   }
-     return false;
 }
 
 /* Aadhar number validation code. It must contain only digit and should length of 12 */
 function adhar_valid(){
   var adharno = /^\d{12}$/;
   if(document.getElementById('adhar').value.match(adharno)){
-      return true;
+  }else{
+    document.getElementById('adhar').style.border = "solid 1px red";
+    document.getElementById("adhar_error").style.visibility="visible";
   }
-     return false;
 }
 
 /* check for email validation for new register
@@ -172,30 +205,14 @@ function insertRecord(){
       return false;
     }
   }
-  var eval=duplicateEmail_register(); // function call for email validation 
-  if(eval==false){
-    return false;
-  }
+
   var eval_adhar=duplicateAdhar_register(); // function call for email validation 
   if(eval_adhar==false){
     return false;
   }
-  var e_valid=ValidateEmail();
-  if(e_valid==false){
-    document.getElementById('email').style.border = "solid 1px red";
-    document.getElementById("email_error").style.visibility="visible";
-    return false;
-  }
-  var mob_valid=mobile_valid();
-  if(mob_valid==false){
-    document.getElementById('mobile').style.border = "solid 1px red";
-    document.getElementById("mobile_error").style.visibility="visible";
-    return false;
-  }
-  var adhr_valid=adhar_valid();
-  if(adhr_valid==false){
-    document.getElementById('adhar').style.border = "solid 1px red";
-    document.getElementById("adhar_error").style.visibility="visible";
+
+  var eval=duplicateEmail_register(); // function call for email validation 
+  if(eval==false){
     return false;
   }
   
@@ -207,8 +224,8 @@ function insertRecord(){
     row.insertCell(13).innerHTML = '<button class="button2" onclick="editRow(this)">Edit Record</button>';
     row.insertCell(14).innerHTML = '<button class="button2" onclick="deletecnfg(this)">Delete Record</button>';
 
-    document.getElementById("myForm")[0].reset();
-
+    frm=document.getElementsByName("myForm")[0];
+    frm.reset();
   }
  
 /*function for delete confirmation message and to delete record */
@@ -250,31 +267,20 @@ function updateRecord(){
     }
   }
 
-  var eval=duplicateEmail_edit(edit_row_index); // function call for email validation 
-  if(eval==false){
-    return false;
-  }
   var eval_adhr=duplicateAdhar_edit(edit_row_index); // function call for email validation 
   if(eval_adhr==false){
     return false;
   }
-  if(ValidateEmail()==false){
-    document.getElementById('email').style.border = "solid 1px red";
-    document.getElementById("email_error").style.visibility="visible";
+  var eval=duplicateEmail_edit(edit_row_index); // function call for email validation 
+  if(eval==false){
     return false;
   }
-  var mob_valid=mobile_valid();
-  if(mob_valid==false){
-    document.getElementById('mobile').style.border = "solid 1px red";
-    document.getElementById("mobile_error").style.visibility="visible";
+  
+  var eval=duplicateEmail_edit(edit_row_index); // function call for email validation 
+  if(eval==false){
     return false;
   }
-  var adhr_valid=adhar_valid();
-  if(adhr_valid==false){
-    document.getElementById('adhar').style.border = "solid 1px red";
-    document.getElementById("adhar_error").style.visibility="visible";
-    return false;
-  }
+  
 
   for( var i=0; i< 13 ; i++){
     r.cells[i].innerHTML=document.getElementById(arr[i]).value;
@@ -287,7 +293,7 @@ function updateRecord(){
     document.getElementById('register').style.visibility="visible";
     flag=false;
   }
-  document.getElementById("myForm")[0].reset();
+  frm.reset();
 }
 /* function for creating dynamic optons for dependent drop down menu */
 function createOptions1(s2,state,s3,city){
@@ -318,16 +324,19 @@ function populate1(s1,s2,s3){
   var s3 = document.getElementById(s3);
   s2.innerHTML="";
   s3.innerHTML="";
-  if(s1.value=='India'){
-    var stateArray = ["|select","Jharkhand|Jharkhand","Bihar|BIhar","Uttar pardesh|Uttar pardesh"];
-    var cityArray= ["|select","Gaya|Gaya","Patna|Patna","Nalanda|Nalanda","Ranchi|Ranchi","Tatanagar|Tatanagar","Dhanwad|Dhanwad","Banaras|Banaras","Lucknow|Lucknow","Agra|Agra"];
-  }else if(s1.value=='Australia'){
-    var stateArray = ["|select","Victoria|Victoria","Queensland|Queensland"];
-    var cityArray = ["|select","Hamilton|Hamilton","Kerang|Kerang","Swan Hill|Swan Hill","Brisbane|Brisbane","Gladstone|Gladstone","Emerald|Emerald"];
-  }else if(s1.value=='America'){
-    var stateArray = ["|select","Alaska|Alaska","California|California","New York|New York"];
-    var cityArray= ["|select","Anchorage|Anchorage","Fairbanks|Fairbanks","Vacaville|Vacaville","Sacramento|Sacramento","Abbott Road|Abbott Road","Abell Corners|Abell Corners"];
-  }
+  let countryStateMap = {
+    'India': ["|select","Jharkhand|Jharkhand","Bihar|BIhar","Uttar pardesh|Uttar pardesh"],
+    'Australia' : ["|select","Victoria|Victoria","Queensland|Queensland"],
+    'America' : ["|select","Alaska|Alaska","California|California","New York|New York"]
+  };
+
+  let countryCitiesMap = {
+    'India' : ["|select","Gaya|Gaya","Patna|Patna","Nalanda|Nalanda","Ranchi|Ranchi","Tatanagar|Tatanagar","Dhanwad|Dhanwad","Banaras|Banaras","Lucknow|Lucknow","Agra|Agra"],
+    'Australia' : ["|select","Hamilton|Hamilton","Kerang|Kerang","Swan Hill|Swan Hill","Brisbane|Brisbane","Gladstone|Gladstone","Emerald|Emerald"],
+    'America' : ["|select","Anchorage|Anchorage","Fairbanks|Fairbanks","Vacaville|Vacaville","Sacramento|Sacramento","Abbott Road|Abbott Road","Abell Corners|Abell Corners"]
+  };
+  var stateArray = countryStateMap[s1.value];
+  var cityArray = countryCitiesMap[s1.value];
   createOptions1(s2,stateArray,s3,cityArray);
   
 }
@@ -336,23 +345,16 @@ function populate2(s1,s2){
   var s1 = document.getElementById(s1);
   var s2 = document.getElementById(s2);
   s2.innerHTML="";
-  if(s1.value=='Bihar'){
-    var cityArray = ["|select","Gaya|Gaya","Patna|Patna","Nalanda|Nalanda"];
-  }else if(s1.value=='Jharkhand'){
-    var cityArray = ["|select","Ranchi|Ranchi","Tatanagar|Tatanagar","Dhanwad|Dhanwad"];
-  }else if(s1.value=='Uttar pardesh'){
-    var cityArray = ["|select","Banaras|Banaras","Lucknow|Lucknow","Agra|Agra"];
-  }else if(s1.value=='Victoria'){
-    var cityArray = ["|select","Hamilton|Hamilton","Kerang|Kerang","Swan Hill|Swan Hill"];
-  }else if(s1.value=='Queensland'){
-    var cityArray = ["|select","Brisbane|Brisbane","Gladstone|Gladstone","Emerald|Emerald"];
-  }else if(s1.value=='Alaska'){
-    var cityArray = ["|select","Anchorage|Anchorage","Fairbanks|Fairbanks"];
-  }else if(s1.value=='California'){
-    var cityArray = ["|select","Vacaville|Vacaville","Sacramento|Sacramento"];
-  }else if(s1.value=='New York'){
-    var cityArray = ["|select","Abbott Road|Abbott Road","Abell Corners|Abell Corners"];
-  }
-
+  let stateCitiesMap = {
+    'Bihar' : ["|select","Gaya|Gaya","Patna|Patna","Nalanda|Nalanda"],
+    'Jharkhand' :  ["|select","Ranchi|Ranchi","Tatanagar|Tatanagar","Dhanwad|Dhanwad"],
+    'Uttar pardesh' : ["|select","Banaras|Banaras","Lucknow|Lucknow","Agra|Agra"],
+    'Victoria' : ["|select","Hamilton|Hamilton","Kerang|Kerang","Swan Hill|Swan Hill"],
+    'Queensland' : ["|select","Brisbane|Brisbane","Gladstone|Gladstone","Emerald|Emerald"],
+    'Alaska' : ["|select","Anchorage|Anchorage","Fairbanks|Fairbanks"],
+    'California' : ["|select","Vacaville|Vacaville","Sacramento|Sacramento"],
+    'New York' : ["|select","Abbott Road|Abbott Road","Abell Corners|Abell Corners"]
+  };
+  var cityArray = stateCitiesMap[s1.value];
   createOptions2(s2,cityArray);
 }

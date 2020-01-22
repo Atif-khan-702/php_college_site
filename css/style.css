@@ -1,13 +1,16 @@
+/* heading for page*/
 .header {
     overflow: hidden;
     background-color: white;
     padding: 20px 10px;
 }
 
+/* heading alignment*/
 .header-center {
     float: left;
 }
 
+/* responsive code for header*/
 @media screen and (max-width: 500px) {
     
     .header-right {
@@ -15,18 +18,19 @@
     }
 }
 
-.column1 {
+/* different columns for three div and all are align right*/
+.col_subscribe{
     float: right;
     width: 25%;
     padding-left: 15px;
 }
 
-.column2 {
+.col_form {
     float: right;
     width: 50%;
 }
 
-.column3 {
+.col_about {
     float: right;
     width: 25%;
 }
@@ -39,35 +43,38 @@
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 500px) {
-    .column1 {
+    .col_subscribe {
       width: 100%;
     }
-    .column2 {
+    .col_form {
         width: 100%;
     }
-    .column3 {
+    .col_about {
         width: 100%;
     }
   }
 
-
-.header_title{
+/* */
+/* .header_title{
     width: 100%;
     height: 100px;
     background-color: white;
     border-radius: 10px;
     text-align: center;
-}
+} */
 
+/* header image style*/
 #heading_image{
-    margin-top: 5px;
+    margin-top: 3px;
     width: 80px;
     height: 80px;
 }
 
-.card{
+/* .card{
     float: right;
-}
+} */
+
+/* error and success msg on subscribe*/
 #subscribe_correct{
     visibility: hidden;
     color: green;
@@ -76,9 +83,13 @@
     visibility: hidden;
     color: red;
 }
+
+/* div area for student registration form*/
 #content{
     height: 900px;
 }
+
+/* container for student record*/
 .fluid-container1{
     margin-top: 30px;
     height:100%;
@@ -86,6 +97,8 @@
     border-radius: 10px;
     
 }
+
+/* form heading style*/
 .card2_heading{
     margin: 0px;
     height:100px;
@@ -93,36 +106,56 @@
     background-color: darkslategrey;
     border-radius: 10px;
 }
-#heading{
+
+/* form heading text style*/
+#form_heading{
     color: white;
     padding: 28px;
     font-size: 30px;
     text-align: center;
     font-family: 'Fjalla One', sans-serif;
 }
+
+/* div for registration form*/
 .form_div{
     margin: 20px;
 }
+
+/* style for button*/
 .btn-primary{
     margin-top: 10px;
     margin-left: 50px;
     float: center;
 }
+
+/* update button is hidden at registration time*/
 #update{
     visibility: hidden;
 }
+
+/* update button is visible at registration time*/
 #register{
     visibility: visible;
 }
+
+/* heading of student record*/
 #record_head{
     text-align: center;
     padding-top: 10px;
 }
+
+/* error message is hidden by default*/
 .error{
     visibility: hidden;
     color: red;
 }
 
+/* department should align to left*/
 #department{
     float: left;
+}
+
+/* style for subscribe button*/
+#subscribe{
+    margin-top: 25px;
 }
