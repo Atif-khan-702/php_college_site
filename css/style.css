@@ -1,0 +1,128 @@
+.header {
+    overflow: hidden;
+    background-color: white;
+    padding: 20px 10px;
+}
+
+.header-center {
+    float: left;
+}
+
+@media screen and (max-width: 500px) {
+    
+    .header-right {
+      float: none;
+    }
+}
+
+.column1 {
+    float: right;
+    width: 25%;
+    padding-left: 15px;
+}
+
+.column2 {
+    float: right;
+    width: 50%;
+}
+
+.column3 {
+    float: right;
+    width: 25%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 500px) {
+    .column1 {
+      width: 100%;
+    }
+    .column2 {
+        width: 100%;
+    }
+    .column3 {
+        width: 100%;
+    }
+  }
+
+
+.header_title{
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#heading_image{
+    margin-top: 5px;
+    width: 80px;
+    height: 80px;
+}
+
+.card{
+    float: right;
+}
+#subscribe_correct{
+    visibility: hidden;
+    color: green;
+}
+#subscribe_incorrect{
+    visibility: hidden;
+    color: red;
+}
+#content{
+    height: 900px;
+}
+.fluid-container1{
+    margin-top: 30px;
+    height:100%;
+    background-color: lavender;
+    border-radius: 10px;
+    
+}
+.card2_heading{
+    margin: 0px;
+    height:100px;
+    width: 100%;
+    background-color: darkslategrey;
+    border-radius: 10px;
+}
+#heading{
+    color: white;
+    padding: 28px;
+    font-size: 30px;
+    text-align: center;
+    font-family: 'Fjalla One', sans-serif;
+}
+.form_div{
+    margin: 20px;
+}
+.btn-primary{
+    margin-top: 10px;
+    margin-left: 50px;
+    float: center;
+}
+#update{
+    visibility: hidden;
+}
+#register{
+    visibility: visible;
+}
+#record_head{
+    text-align: center;
+    padding-top: 10px;
+}
+.error{
+    visibility: hidden;
+    color: red;
+}
+
+#department{
+    float: left;
+}
