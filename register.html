@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
 </head>
 <body>
     <div class="fluid-container">
@@ -67,8 +68,6 @@
                                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                                     <strong>Oops!</strong> This seems Invalid Email
                                 </div>
-                                <!-- <label id="subscribe_correct">Thanks for subscribe Mirror</label>
-                                <label id="subscribe_incorrect">Invalid Email</label> -->
                             </div>
                         </form>
                     </div>
@@ -80,7 +79,7 @@
                         <h4 id="form_heading">Student Registration Form</h4>
                     </div>
                     <div class="form_div">
-                        <form name="myForm">
+                        <form name="myForm" id="myForm">
                         <h4>Personal Information:</h4>
                         <div class="row">
                             <div class="col-md-2">
@@ -144,7 +143,7 @@
                                 <label for="dob">DOB:</label>
                             </div>
                             <div class="col-md-5">
-                                <input type="date" class="form-control" tabindex="7" id="dob" onchange="age_validator()">
+                                <input type="date" class="form-control" tabindex="7" id="dob">
                                 <label class="error" id="dob_error">DOB is required</label>
                             </div>
                             <div class="col-md-5">
@@ -595,7 +594,7 @@
     </div>
     <div class="fluid-container1">
         <h2 id="record_head">Records of students</h2>
-        <table class="table table-responsive table-bordered" id="mytable">
+        <table class="table table-responsive table-bordered" name="mytable" id="mytable">
             <thead>
                 <tr>
                     <th>First Name</th>
@@ -618,6 +617,6 @@
         </table>
     </div>
 
-<script src="js\register.js"></script>
+<script src="JQuery/register.js"></script>
 </body>
 </html>

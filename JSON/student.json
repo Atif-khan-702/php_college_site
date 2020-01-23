@@ -1,0 +1,47 @@
+[
+    {
+        "fname":"Atif",
+        "mname":"ali",
+        "lname":"khan",
+        "fatherName":"Md Taslim khan",
+        "motherName":"sajda khatoon",
+        "gender":"Male",
+        "adhar":"316038022243",
+        "dob":"1998-12-31",
+        "email":"atifpathan702@gmail.com",
+        "mobile":"8804209788",
+        "country":"India",
+        "state":"Bihar",
+        "city":"Gaya"
+    },
+    {
+        "fname":"Aman",
+        "mname":"kumar",
+        "lname":"singh",
+        "fatherName":"Md Taslim khan",
+        "motherName":"sajda khatoon",
+        "gender":"Male",
+        "adhar":"316038022240",
+        "dob":"1998-12-31",
+        "email":"aman@gmail.com",
+        "mobile":"8804209788",
+        "country":"India",
+        "state":"Bihar",
+        "city":"Gaya"
+    },
+    {
+        "fname":"Amit",
+        "mname":"",
+        "lname":"kumar",
+        "fatherName":"Md Taslim khan",
+        "motherName":"sajda khatoon",
+        "gender":"Male",
+        "adhar":"316038022248",
+        "dob":"1998-12-31",
+        "email":"amit@gmail.com",
+        "mobile":"8804209788",
+        "country":"India",
+        "state":"Bihar",
+        "city":"Gaya"
+    }
+]

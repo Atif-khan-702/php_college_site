@@ -47,13 +47,15 @@ function age_validator(){
     }else {
       document.getElementById('dob').style.border = "solid 1px red";
       document.getElementById("dob_error1").style.visibility="visible";
+      return false;
     }
   }
 }
 
 function remove_error(){
   if(document.getElementById("email_subscribe").value.trim()!=""){
-    document.querySelectorAll("#subscribe_incorrect , #subscribe_correct").style.visibility="hidden";
+    document.getElementById("subscribe_correct").style.visibility="hidden";
+    document.getElementById("subscribe_incorrect").style.visibility="hidden";
   }
 }
 
@@ -62,6 +64,7 @@ function subscribe_message(){
   var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if(document.getElementById('email_subscribe').value.match(mailformat)){
     document.getElementById("subscribe_correct").style.visibility="visible";
+    document.getElementsByName('subs_form')[0].reset();
   }else{
     document.getElementById("subscribe_incorrect").style.visibility="visible";
   }
@@ -79,6 +82,7 @@ function ValidateEmail()
   }else{
     document.getElementById('email').style.border = "solid 1px red";
     document.getElementById("email_error").style.visibility="visible";
+    return false;
   }
 }
 
@@ -89,6 +93,7 @@ function mobile_valid(){
   }else{
     document.getElementById('mobile').style.border = "solid 1px red";
     document.getElementById("mobile_error").style.visibility="visible";
+    return false;
   }
 }
 
@@ -99,6 +104,7 @@ function adhar_valid(){
   }else{
     document.getElementById('adhar').style.border = "solid 1px red";
     document.getElementById("adhar_error").style.visibility="visible";
+    return false;
   }
 }
 
@@ -144,6 +150,8 @@ function duplicateAdhar_register(){
   var table=document.getElementById('mytable');
   if(table){
     var adhar=document.getElementById('adhar').value;
+
+
     for(var i=0; i< table.rows.length;i++){
         if(table.rows[i].cells[6].innerHTML==adhar){
           document.getElementById('adhar').style.border = "solid 1px red";
@@ -204,6 +212,26 @@ function insertRecord(){
       document.getElementById(id+"_error").style.visibility="visible";
       return false;
     }
+  }
+
+  var adhar_value=adhar_valid();
+  if(adhar_value==false){
+    return false;
+  }
+
+  var email_value=ValidateEmail();
+  if(email_value==false){
+    return false;
+  }
+
+  var age_value=age_validator();
+  if(age_value==false){
+    return false;
+  }
+
+  var mobile_value=mobile_valid();
+  if(mobile_value==false){
+    return false;
   }
 
   var eval_adhar=duplicateAdhar_register(); // function call for email validation 
@@ -267,15 +295,31 @@ function updateRecord(){
     }
   }
 
+  var adhar_value=adhar_valid();
+  if(adhar_value==false){
+    return false;
+  }
+
+  var email_value=ValidateEmail();
+  if(email_value==false){
+    return false;
+  }
+
+  var age_value=age_validator();
+  if(age_value==false){
+    return false;
+  }
+
+  var mobile_value=mobile_valid();
+  if(mobile_value==false){
+    return false;
+  }
+
+
   var eval_adhr=duplicateAdhar_edit(edit_row_index); // function call for email validation 
   if(eval_adhr==false){
     return false;
   }
-  var eval=duplicateEmail_edit(edit_row_index); // function call for email validation 
-  if(eval==false){
-    return false;
-  }
-  
   var eval=duplicateEmail_edit(edit_row_index); // function call for email validation 
   if(eval==false){
     return false;
