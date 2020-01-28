@@ -1,27 +1,39 @@
 $(document).ready(function(){
-    $.getJSON("JSON/student.json", function(data){
-        var student_data = '';
-        $.each(data, function(key, value){
-            student_data += '<tr>';
-            student_data += '<td>'+value.fname+'</td>';
-            student_data += '<td>'+value.mname+'</td>';
-            student_data += '<td>'+value.lname+'</td>';
-            student_data += '<td>'+value.fatherName+'</td>';
-            student_data += '<td>'+value.motherName+'</td>';
-            student_data += '<td>'+value.gender+'</td>';
-            student_data += '<td>'+value.adhar+'</td>';
-            student_data += '<td>'+value.dob+'</td>';
-            student_data += '<td>'+value.email+'</td>';
-            student_data += '<td>'+value.mobile+'</td>';
-            student_data += '<td>'+value.country+'</td>';
-            student_data += '<td>'+value.state+'</td>';
-            student_data += '<td>'+value.city+'</td>';
-            student_data += '<td><button class="button2" onclick="editRow(this)" id="edit">Edit Record</button></td>';
-            student_data += '<td><button class="button2" onclick="deletecnfg(this)" id="delete">Delete Record</button></td>';
-            student_data += '</tr>';
-        });
-        $('#mytable').append(student_data);
-    });
+    
+    $.ajax({
+        type:'GET',
+        url: 'http://localhost/json/student.json',
+        headers : {'Access-Control-Allow-Origin':'http://localhost/json/student.json'},
+        dataType: 'json',
+        success: function(data) {
+            var student_data = '';
+            $.each(data, function(key, value){
+                student_data += '<tr>';
+                student_data += '<td>'+value.fname+'</td>';
+                student_data += '<td>'+value.mname+'</td>';
+                student_data += '<td>'+value.lname+'</td>';
+                student_data += '<td>'+value.fatherName+'</td>';
+                student_data += '<td>'+value.motherName+'</td>';
+                student_data += '<td>'+value.gender+'</td>';
+                student_data += '<td>'+value.adhar+'</td>';
+                student_data += '<td>'+value.dob+'</td>';
+                student_data += '<td>'+value.email+'</td>';
+                student_data += '<td>'+value.mobile+'</td>';
+                student_data += '<td>'+value.country+'</td>';
+                student_data += '<td>'+value.state+'</td>';
+                student_data += '<td>'+value.city+'</td>';
+                student_data += '<td><button class="button2" onclick="editRow(this)" id="edit">Edit Record</button></td>';
+                student_data += '<td><button class="button2" onclick="deletecnfg(this)" id="delete">Delete Record</button></td>';
+            });
+            $('#mytable').append(student_data);
+        },
+       statusCode: {
+          404: function() {
+            alert('There was a problem with the server.  Try again soon!');
+          }
+        }
+     });
+
     var formModule = (function(){
         var flag=false;
         /* function for age validation, age should be in between 14-40 */
@@ -252,19 +264,33 @@ $(document).ready(function(){
             if(eval_adhar==false){
                 return false;
             }
-          
+        
             var eval=duplicateEmail_register(); // function call for email validation 
             if(eval==false){
                 return false;
             }
             
-            var table = $("#mytable")[0];
-            var row = table.insertRow();
-            for(var i = 0; i < 13 ; i++){
-                $(row.insertCell(i)).text($('#'+arr[i]).val().trim());
-            }
-            $(row.insertCell(13)).html('<button class="button2" onclick="editRow(this)" id="edit">Edit Record</button>');
-            $(row.insertCell(14)).html('<button class="button2" onclick="deletecnfg(this)" id="delete">Delete Record</button>');
+            var form = $('#myForm').serialize();
+            $.ajax({
+                url: 'http://localhost/php/insert_record.php',
+                headers : {'Access-Control-Allow-Origin':'http://localhost/php/insert_record.php'},
+                type:'post',
+                data: form,
+                success: function(data){
+                },
+                statusCode: {
+                    404: function() {
+                      alert('There was a problem with the server.  Try again soon!');
+                    }
+                  }
+            });
+            // var table = $("#mytable")[0];
+            // var row = table.insertRow();
+            // for(var i = 0; i < 13 ; i++){
+            //     $(row.insertCell(i)).text($('#'+arr[i]).val().trim());
+            // }
+            // $(row.insertCell(13)).html('<button class="button2" onclick="editRow(this)" id="edit">Edit Record</button>');
+            // $(row.insertCell(14)).html('<button class="button2" onclick="deletecnfg(this)" id="delete">Delete Record</button>');
 
             $('#myForm')[0].reset();
         };
@@ -407,6 +433,23 @@ $(document).ready(function(){
             createOptions2(cityArray);
     };
 
+    function loginRecord(){
+        var form = $('#loginForm').serialize();
+        $.ajax({
+            url: 'http://localhost/php/login_record.php',
+            headers : {'Access-Control-Allow-Origin':'http://localhost/php/login_record.php'},
+            type:'post',
+            data: form,
+            success: function(data){
+            },
+            statusCode: {
+                404: function() {
+                  alert('There was a problem with the server.  Try again soon!');
+                }
+              }
+        });
+    }
+
     return{
         age_validator:age_validator,
         remove_error:remove_error,
@@ -415,6 +458,7 @@ $(document).ready(function(){
         subscribe_message:subscribe_message,
         ValidateEmail:ValidateEmail,
         insertRecord:insertRecord,
+        loginRecord:loginRecord,
         updateRecord:updateRecord,
         populate1:populate1,
         populate2:populate2,
@@ -428,6 +472,9 @@ $(document).ready(function(){
 }());
     $(document).on("click","#register",function(){
         formModule.insertRecord()
+    });
+    $(document).on("click","#login",function(){
+        formModule.loginRecord()
     });
     $(document).on("click","#update",function(){
         formModule.updateRecord()
@@ -488,4 +535,4 @@ $(document).ready(function(){
         formModule.duplicateAdhar_register()
     })
     
-})
+});

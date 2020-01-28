@@ -79,7 +79,7 @@
                         <h4 id="form_heading">Student Registration Form</h4>
                     </div>
                     <div class="form_div">
-                        <form name="myForm" id="myForm">
+                        <form name="myForm" id="myForm" action='http://localhost/php/insert_record.php' method="POST">
                         <h4>Personal Information:</h4>
                         <div class="row">
                             <div class="col-md-2">
@@ -105,14 +105,14 @@
                                 <label for="fatherName">Father's Name:</label>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" tabindex="4" id="fatherName" placeholder="Enter Father's Name">
+                                <input type="text" class="form-control" tabindex="4" id="fatherName" name="fatherName" placeholder="Enter Father's Name">
                                 <label class="error" id="fatherName_error">Father Name is required</label>
                             </div>
                             <div class="col-md-2">
                                 <label for="motherName">Mother's Name:</label>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" tabindex="5" id="motherName" placeholder="Enter Mother's Name">
+                                <input type="text" class="form-control" tabindex="5" id="motherName" name="motherName" placeholder="Enter Mother's Name">
                                 <label class="error" id="motherName_error">Mother Name is required</label>
                             </div>
                             
@@ -122,7 +122,7 @@
                                 <label for="gender">Gender:</label>
                             </div>
                             <div class="col-md-4">
-                                <select class="form-control" tabindex="6" id="gender">
+                                <select class="form-control" tabindex="6" id="gender" name="gender">
                                     <option value="">--select--</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -134,7 +134,7 @@
                                 <label for="adhar">Adhar:</label>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" tabindex="7" id="adhar" placeholder="Enter Adhar Number" name="lname">
+                                <input type="text" class="form-control" tabindex="7" id="adhar" name="adhar" placeholder="Enter Adhar Number" name="lname">
                                 <label class="error" id="adhar_error">Invalid Adhar</label>
                             </div>
                         </div>
@@ -142,8 +142,8 @@
                             <div class="col-md-2">
                                 <label for="dob">DOB:</label>
                             </div>
-                            <div class="col-md-5">
-                                <input type="date" class="form-control" tabindex="7" id="dob">
+                            <div class="col-md-4">
+                                <input type="date" class="form-control" tabindex="7" id="dob" name="dob">
                                 <label class="error" id="dob_error">DOB is required</label>
                             </div>
                             <div class="col-md-5">
@@ -156,14 +156,14 @@
                                 <label for="email">Email:</label>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" tabindex="8" id="email" placeholder="Enter Email Id">
+                                <input type="text" class="form-control" tabindex="8" id="email" name="email" placeholder="Enter Email Id">
                                 <label class="error" id="email_error">Invalid Email</label>
                             </div>
                             <div class="col-md-2">
                                 <label for="phone">Phone:</label>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" tabindex="9" id="mobile" placeholder="Enter Phone Number">
+                                <input type="text" class="form-control" tabindex="9" id="mobile" name="mobile" placeholder="Enter Phone Number">
                                 <label class="error" id="mobile_error">Invalid Mobile Number</label>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                 <label for="city">City:</label>
                             </div>                               
                             <div class="col-md-4">
-                                <select name="state" tabindex="11" class="form-control" tabindex="13" id="city">
+                                <select tabindex="11" class="form-control" tabindex="13" id="city" name="city">
                                 </select>
                                 <label class="error" id="city_error">City is required</label>
                             </div>
@@ -212,14 +212,70 @@
                                 
                             </div>
                             <div class="col-md-4">
-                                <button class="btn btn-outline-primary btn-block" tabindex="12" type="button" id="register">Register</button>
+                                <button class="btn btn-outline-primary btn-block" tabindex="12" type="submit" id="register">Register</button>
                             </div>
                         </div>
+                        <br>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h6>Already Registered ?</h6>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline-primary btn-block" tabindex="12" type="button" id="login_main_page" data-toggle="modal" data-target="#myModalLogin">Login</button>
+                                </div>
+                            </div>
                         </form>
                         <br>
                     </div>
                 </div>
             </div>
+
+            <!-- code for login form using modal starts from here-->
+            <div class="modal" id="myModalLogin">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form name="loginForm" id="loginForm" action='http://localhost/php/login_record.php' method="POST">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="Email">Email:</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control" id="email_login" placeholder="Enter Email" name="email_login">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="Email">Password:</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input type="password" class="form-control" id="pass_login" placeholder="Enter Password" name="pass_login">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-outline-primary btn-block" type="submit" id="login">Login</button>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!-- code for login form using modal ends here-->
+
             <div class="col_about">
                 <div class="card bg-light text dark">
                     <div id="accordion">
@@ -592,7 +648,7 @@
             </div>
           </div>
     </div>
-    <div class="fluid-container1">
+    <!-- <div class="fluid-container1">
         <h2 id="record_head">Records of students</h2>
         <table class="table table-responsive table-bordered" name="mytable" id="mytable">
             <thead>
@@ -615,8 +671,8 @@
                  </tr>
             </thead>
         </table>
-    </div>
+    </div> -->
 
-<script src="JQuery/register.js"></script>
+<script src="JQuery\register.js"></script>
 </body>
 </html>
